@@ -3,14 +3,14 @@ use clap::{Parser, Subcommand};
 /// A command line log viewer application.
 #[derive(Parser, Debug)]
 #[command(
-    version, 
-    about, 
-    long_about = None, 
+    version,
+    about,
+    long_about = None,
     author = "Jake Hathaway <jake.d.hathaway@gmail.com>",
     help_template = "\
 {before-help}
-{name} 
-Version: {version} 
+{name}
+Version: {version}
 Created By: {author-with-newline}
 {about-with-newline}
 {usage-heading} {usage}
