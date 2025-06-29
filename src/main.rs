@@ -1,3 +1,20 @@
+//! Logz is a command line log viewer application. It is designed to help
+//! engineers quickly evaluate errors in their applications without a lot
+//! of ceremony.
+
+#![forbid(unsafe_code)]
+#![warn(missing_docs)]
+#![warn(clippy::missing_docs_in_private_items)]
+#![warn(clippy::doc_markdown)]
+#![warn(rustdoc::missing_crate_level_docs)]
+#![warn(rustdoc::broken_intra_doc_links)]
+// ratatui depends on unicode-width and
+// unicode-truncate (which depends on another version of unicode-width)
+#![allow(clippy::multiple_crate_versions)]
+
+mod log_viewer;
+mod persistence;
+
 use clap::{Parser, Subcommand};
 
 /// A command line log viewer application.
@@ -20,6 +37,7 @@ Created By: {author-with-newline}
 "
 )]
 struct Args {
+    /// A command
     #[command(subcommand)]
     command: Option<Commands>,
 
@@ -30,16 +48,18 @@ struct Args {
     follow: bool,
 }
 
-#[derive(Subcommand, Debug)]
+#[derive(Subcommand, Debug, Clone)]
 enum Commands {
     /// Manage registered applications
     Application {
+        /// The action to perform
         #[command(subcommand)]
         action: ApplicationAction,
     },
 }
 
-#[derive(Subcommand, Debug)]
+/// An application action
+#[derive(Subcommand, Debug, Clone)]
 enum ApplicationAction {
     /// Add a new application
     Add {
@@ -59,8 +79,6 @@ enum ApplicationAction {
 
 fn main() {
     let args = Args::parse();
-
-    // for _ in 0..args.count {
-    //     println!("Hello {}!", args.name);
-    // }
+    let app = log_viewer::LogViewer::new(args);
+    app.run();
 }

@@ -2,6 +2,12 @@
 name = "logz"
 version = "0.1.0"
 edition = "2024"
+description = "A command line log viewer."
+authors = ["Jake Hathaway <jake.d.hathaway@gmail.com>"]
+license = "Unlicense"
+repository = "https://github.com/th3oth3rjak3/logz"  # Update with your actual repo
+keywords = ["log", "viewer", "cli", "tui", "tail"]
+categories = ["command-line-utilities"]
 
 [dependencies]
 clap = { version = "4.5.40", features = ["derive"] }
