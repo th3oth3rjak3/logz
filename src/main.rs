@@ -15,6 +15,8 @@
 mod log_viewer;
 mod persistence;
 
+use std::path::PathBuf;
+
 use clap::{Parser, Subcommand};
 
 /// A command line log viewer application.
@@ -42,7 +44,7 @@ struct Args {
     command: Option<Commands>,
 
     /// Path to a single log file (when no subcommand is used)
-    file_path: Option<String>,
+    file_path: Option<PathBuf>,
     /// Follow mode to auto-scroll to new content
     #[arg(short, long, default_value = "false")]
     follow: bool,
