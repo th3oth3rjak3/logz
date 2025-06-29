@@ -21,7 +21,7 @@ V0.2:
 
 V0.3:
 - Add persistence via json/toml/yaml or sqlite for app names
-- Logz application add "myapp" "./applocation" (register a new app)
+- Logz application add "myapp" "./application" (register a new app)
 - When app is chosen, user is given a list log files to choose from in the tui
 - To select, user uses j,k or up arrow, down arrow, and presses enter to select the log file.
 - To go back to the list of files, user presses backspace or esc
