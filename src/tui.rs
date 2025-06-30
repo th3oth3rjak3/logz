@@ -18,18 +18,25 @@ use ratatui::{
 };
 use std::io::{self, Stdout, stdout};
 
+/// `CrosstermTerminal` is an alias for the `CrossTerm` backend.
 pub type CrosstermTerminal = Terminal<CrosstermBackend<Stdout>>;
 
-/// TUI manages the terminal user interface using ratatui
-pub struct TUI {
+/// `Tui` manages the terminal user interface using ratatui
+pub struct Tui {
+    /// `terminal` is the terminal instance doing all the work.
     terminal: CrosstermTerminal,
+    /// `log_entries` are the log entries that will be displayed to the screen.
     log_entries: Vec<LogEntry>,
+    /// `scroll_offset` is the amount of offset that the screen has to scroll to show the correct
+    /// log entries.
     scroll_offset: usize,
+    /// `selected_index` is the current log entry that's highlighted in the UI.
     selected_index: Option<usize>,
+    /// `auto_scroll` keeps the window at the bottom of the log file when true.
     auto_scroll: bool, // Track if we should auto-scroll to bottom
 }
 
-impl TUI {
+impl Tui {
     /// Create a new TUI instance
     pub fn new() -> io::Result<Self> {
         let backend = CrosstermBackend::new(stdout());
@@ -309,7 +316,7 @@ impl TUI {
             .take(content_height)
             .enumerate()
             .map(|(i, entry)| {
-                let content = format!("{}", entry.content);
+                let content = entry.content.clone();
                 let style = if Some(i + scroll_offset) == selected_index {
                     Style::default()
                         .bg(Color::DarkGray)

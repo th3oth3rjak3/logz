@@ -1,6 +1,6 @@
 //! `log_viewer` is the module for `LogViewer` logic.
 
-use crate::{Args, Commands, log_entry::LogEntry, log_file::LogFile, tui::TUI};
+use crate::{Args, Commands, log_entry::LogEntry, log_file::LogFile, tui::Tui};
 use notify::{Event, EventKind, RecursiveMode, Watcher};
 use std::{io, path::PathBuf, sync::mpsc::channel};
 
@@ -50,7 +50,7 @@ impl LogViewer {
     /// run the application in single-file mode with TUI
     pub fn run_single_file_with_tui(file_path: String) -> io::Result<()> {
         // Initialize TUI
-        let mut tui = TUI::new()?;
+        let mut tui = Tui::new()?;
         tui.start()?;
 
         // Ensure we clean up the terminal even if there's an error
@@ -63,7 +63,7 @@ impl LogViewer {
     }
 
     /// Main TUI loop with file watching
-    fn run_tui_loop(file_path: String, tui: &mut TUI) -> io::Result<()> {
+    fn run_tui_loop(file_path: String, tui: &mut Tui) -> io::Result<()> {
         let mut log_file = match LogFile::new(file_path) {
             Ok(file) => file,
             Err(err) => {
@@ -100,7 +100,7 @@ impl LogViewer {
     }
 
     /// Load initial log entries into the TUI
-    fn load_initial_log_entries(log_file: &mut LogFile, tui: &mut TUI) -> io::Result<()> {
+    fn load_initial_log_entries(log_file: &mut LogFile, tui: &mut Tui) -> io::Result<()> {
         let entries: Vec<LogEntry> = match log_file.get_entries() {
             Ok(entries) => entries,
             Err(e) => {
@@ -115,7 +115,7 @@ impl LogViewer {
     }
 
     /// Update log entries in the TUI (append new entries only)
-    fn update_log_entries_tui(log_file: &mut LogFile, tui: &mut TUI) -> io::Result<()> {
+    fn update_log_entries_tui(log_file: &mut LogFile, tui: &mut Tui) -> io::Result<()> {
         let entries: Vec<LogEntry> = match log_file.get_entries() {
             Ok(entries) => entries,
             Err(e) => {
