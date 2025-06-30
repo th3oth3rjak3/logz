@@ -78,7 +78,7 @@ impl LogViewer {
         // Set up file watcher
         let (tx, rx) = channel();
         let mut watcher = notify::recommended_watcher(tx)
-            .map_err(|e| io::Error::new(io::ErrorKind::Other, format!("Watcher error: {e}")))?;
+            .map_err(|e| io::Error::other(format!("Watcher error: {e}")))?;
 
         let path: PathBuf = log_file.clone().into();
         watcher
