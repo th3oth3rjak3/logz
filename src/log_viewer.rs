@@ -68,7 +68,7 @@ impl LogViewer {
             Ok(file) => file,
             Err(err) => {
                 eprintln!("Error occurred while getting log file: {err}");
-                return Err(io::Error::new(io::ErrorKind::Other, err));
+                return Err(std::io::Error::other(err));
             }
         };
 
@@ -83,7 +83,7 @@ impl LogViewer {
         let path: PathBuf = log_file.clone().into();
         watcher
             .watch(path.as_path(), RecursiveMode::NonRecursive)
-            .map_err(|e| io::Error::new(io::ErrorKind::Other, format!("Watch error: {e}")))?;
+            .map_err(|e| io::Error::other(format!("Watch error: {e}")))?;
 
         // Use the TUI's main loop with file watching as external event handler
         tui.run_loop(|tui_ref| {
@@ -105,7 +105,7 @@ impl LogViewer {
             Ok(entries) => entries,
             Err(e) => {
                 eprintln!("Error occurred while reading initial log entries: {e}");
-                return Err(io::Error::new(io::ErrorKind::Other, e));
+                return Err(io::Error::other(e));
             }
         };
 
@@ -120,7 +120,7 @@ impl LogViewer {
             Ok(entries) => entries,
             Err(e) => {
                 eprintln!("Error occurred while reading log entries: {e}");
-                return Err(io::Error::new(io::ErrorKind::Other, e));
+                return Err(io::Error::other(e));
             }
         };
 
