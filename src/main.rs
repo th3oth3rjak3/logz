@@ -12,10 +12,11 @@
 // unicode-truncate (which depends on another version of unicode-width)
 #![allow(clippy::multiple_crate_versions)]
 
+mod log_entry;
+mod log_file;
 mod log_viewer;
 mod persistence;
-
-use std::path::PathBuf;
+mod tui;
 
 use clap::{Parser, Subcommand};
 
@@ -44,7 +45,7 @@ struct Args {
     command: Option<Commands>,
 
     /// Path to a single log file (when no subcommand is used)
-    file_path: Option<PathBuf>,
+    file_path: Option<String>,
     /// Follow mode to auto-scroll to new content
     #[arg(short, long, default_value = "false")]
     follow: bool,
