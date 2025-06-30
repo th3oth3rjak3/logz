@@ -42,7 +42,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-20.04  # Use older Ubuntu for better glibc compatibility
+          - os: ubuntu-22.04  # Use older Ubuntu for better glibc compatibility
             target: x86_64-unknown-linux-musl  # Use musl for static linking
           - os: windows-latest
             target: x86_64-pc-windows-msvc

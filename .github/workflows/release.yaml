@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: ubuntu-20.04  # Use older Ubuntu for better glibc compatibility
+          - os: ubuntu-22.04  # Use older Ubuntu for better glibc compatibility
             target: x86_64-unknown-linux-musl  # Use musl for static linking
             binary_name: logz
             asset_name: logz-linux-x86_64
