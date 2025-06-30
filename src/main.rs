@@ -16,6 +16,7 @@ mod log_entry;
 mod log_file;
 mod log_viewer;
 mod persistence;
+mod tui;
 
 use clap::{Parser, Subcommand};
 

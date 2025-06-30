@@ -1,6 +1,7 @@
 //! `log_entry` represents a row in a `LogFile`
 
 /// `LogEntry` represents a row in a `LogFile`.
+#[derive(Debug, Clone)]
 pub struct LogEntry {
     /// `line` is the line number where the content was found in the log file.
     pub line: usize,
