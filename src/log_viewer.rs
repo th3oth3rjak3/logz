@@ -55,18 +55,7 @@ impl LogViewer {
             }
         };
 
-        let entries: Vec<LogEntry> = match log_file.get_entries() {
-            Ok(entries) => entries,
-            Err(e) => {
-                eprintln!("Error occurred while reading log entries: {e}");
-                std::process::exit(1);
-            }
-        };
-
-        for entry in &entries {
-            // TUI::print(entry)
-            println!("{}", entry.content);
-        }
+        Self::process_log_entries(&mut log_file);
 
         let (tx, rx) = channel();
 
@@ -90,19 +79,25 @@ impl LogViewer {
                 ..
             })) = rx.recv()
             {
-                let entries: Vec<LogEntry> = match log_file.get_entries() {
-                    Ok(entries) => entries,
-                    Err(e) => {
-                        eprintln!("Error occurred while reading log entries: {e}");
-                        std::process::exit(1);
-                    }
-                };
-
-                for entry in &entries {
-                    // TUI::print(entry)
-                    println!("{}", entry.content);
-                }
+                Self::process_log_entries(&mut log_file);
             }
+        }
+    }
+
+    /// `process_log_entries` gets all the log entries for the `LogFile`
+    /// and displays them to the user.
+    fn process_log_entries(log_file: &mut LogFile) {
+        let entries: Vec<LogEntry> = match log_file.get_entries() {
+            Ok(entries) => entries,
+            Err(e) => {
+                eprintln!("Error occurred while reading log entries: {e}");
+                std::process::exit(1);
+            }
+        };
+
+        for entry in &entries {
+            // TUI::print(entry)
+            println!("{}", entry.content);
         }
     }
 }
