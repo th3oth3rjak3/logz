@@ -12,7 +12,7 @@ Logz is a command line utility that is used to view log files.
 V0.1 (MVP):
 - [x] A CLI tool where a user enters a file path to tail
 - [ ] A terminal ui that displays the log output in real time.
-- [x] It only tails the log and prints out the messages as they arrive in the log file.~~
+- [x] It only tails the log and prints out the messages as they arrive in the log file.
 
 V0.2:
 - [ ] Open and view a single text based log file.
